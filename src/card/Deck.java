@@ -5,7 +5,7 @@ import java.util.Collections;
 import java.util.List;
 
 public class Deck {
-    private final List<Card> deck;
+    private List<Card> deck;
     private final int numOfDecks;
 
     public Deck(int numOfDecks) {
@@ -31,6 +31,10 @@ public class Deck {
 
     public void shuffleDeck(){
         Collections.shuffle(deck);
+    }
+
+    public void setDeck(List<Card> deck){
+        this.deck = deck;
     }
 
 

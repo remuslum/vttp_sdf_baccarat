@@ -2,8 +2,6 @@ package src.baccarat;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -12,6 +10,8 @@ import java.io.OutputStreamWriter;
 import java.io.Reader;
 import java.io.Writer;
 import java.net.Socket;
+import java.util.ArrayList;
+import java.util.List;
 
 public class BaccaratEngine {
     private final Socket socket;
@@ -21,6 +21,10 @@ public class BaccaratEngine {
     }
 
     public void parse() throws IOException{
+        List<String> playerBuyIn = new ArrayList<>();
+        int betAmount = 0;
+        String username = "";
+        
         //Read message to client
         InputStream is = socket.getInputStream();
         Reader reader = new InputStreamReader(is);
@@ -31,21 +35,23 @@ public class BaccaratEngine {
         Writer writer = new OutputStreamWriter(os);
         BufferedWriter bw = new BufferedWriter(writer);
 
-        String dataDirectory = "/Users/remuslum/Downloads/vttp_sdf/vttp_sdf_bacarrat/data";
+        // String messageFromClient = "";
+        // while((messageFromClient = br.readLine()) != null){
+        //     if(messageFromClient.contains("login")) {
+        //         String[] inputs = messageFromClient.split("|");
+        //         username = inputs[1];
+        //         FileManager fileManager = new FileManager(username);
+        //         playerBuyIn = fileManager.readFile(inputs[2]);
+        //     } else if(messageFromClient.contains("bet")) {
+        //         String[] inputs = messageFromClient.split("|");
+        //         Player player = new Player(username, Integer.parseInt(playerBuyIn.get(0)), new ArrayList<>());
+        //         betAmount = Integer.parseInt(inputs[1]);
+        //     } else if (messageFromClient.contains("deal")){
+        //         Baccarat baccarat = new Baccarat(null, null, null)
+        //     }
+        // }
 
-        String messageFromClient = "";
-        while((messageFromClient = br.readLine()) != null){
-            if(messageFromClient.contains("login")){
-                String[] inputs = messageFromClient.split("|");
-                String filePath = dataDirectory + File.separator + inputs[1] + ".db";
-                File file = new File(filePath);
-                if (!file.exists()) {
-                    file.createNewFile();
-                }
-                FileWriter FileWriter = new FileWriter(file);
-                BufferedWriter bufferedWriter = new BufferedWriter(writer);
-            }
-        }
+        
     }
     // public static void main(String[] args) {
     //     Deck deck = new Deck(4);

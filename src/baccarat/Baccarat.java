@@ -1,16 +1,16 @@
 package src.baccarat;
 
-import java.util.List;
 import src.banker.Banker;
 import src.card.Card;
+import src.card.Deck;
 import src.player.Player;
 
 public class Baccarat {
-    private List<Card> deck;
+    private Deck deck;
     private final Player player;
     private final Banker banker;
     
-    public Baccarat(List<Card> deck, Player player, Banker banker) {
+    public Baccarat(Deck deck, Player player, Banker banker) {
         this.deck = deck;
         this.player = player;
         this.banker = banker;
@@ -48,15 +48,15 @@ public class Baccarat {
         int j = 0;
         for(int i = 0; i < 3; i = i+2){
             j = i + 1;
-            this.player.getHand().add(this.deck.get(i));
-            this.banker.getHand().add(this.deck.get(j));
+            this.player.getHand().add(this.deck.getDeck().get(i));
+            this.banker.getHand().add(this.deck.getDeck().get(j));
         }
-        this.deck = this.deck.subList(j, this.deck.size());
+        this.deck.setDeck(this.deck.getDeck().subList(j, this.deck.getDeck().size()));
     }
 
     public Card drawCard(){
-        Card card = this.deck.get(0);
-        this.deck = this.deck.subList(1, this.deck.size());
+        Card card = this.deck.getDeck().get(0);
+        this.deck.setDeck(this.deck.getDeck().subList(1, this.deck.getDeck().size()));
         return card;
     }
 

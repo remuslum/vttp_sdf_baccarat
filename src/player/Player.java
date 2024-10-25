@@ -14,6 +14,7 @@ public class Player extends Human{
         super(hand);
         this.name = name;
         this.buyIn = buyIn;
+        this.winnings = 0;
     }
 
     public void increaseWinnings(int amount) {
@@ -34,6 +35,11 @@ public class Player extends Human{
 
     public int getWinnings() {
         return winnings;
+    }
+
+    @Override
+    public String toString() {
+        return this.name + " has entered the session with $" + this.buyIn;
     }
     
     
