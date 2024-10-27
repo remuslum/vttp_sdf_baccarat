@@ -9,38 +9,37 @@ public class Baccarat {
     private Deck deck;
     private final Player player;
     private final Banker banker;
+    private final int betAmount;
     
-    public Baccarat(Deck deck, Player player, Banker banker) {
+    public Baccarat(Deck deck, Player player, Banker banker, int betAmount) {
         this.deck = deck;
         this.player = player;
         this.banker = banker;
+        this.betAmount = betAmount;
     }
 
-    public void runGame(int betAmount) {
+    public String runGame() {
         dealHand();
-        if(betAmount > this.player.getBuyIn()) {
-            System.out.println("Not enough funds!");
-        } else {
-            this.player.deductBuyIn(betAmount);
-            if (this.player.calculatePoints() == this.banker.calculatePoints()) {
-                this.player.getHand().add(drawCard());
-                this.banker.getHand().add(drawCard());
-            }
-            determineWinner(betAmount);
+        this.player.deductBuyIn(betAmount);
+        if (this.player.calculatePoints() == this.banker.calculatePoints()) {
+            this.player.getHand().add(drawCard());
+            this.banker.getHand().add(drawCard());
         }
+        return determineWinner();
+        
     }
 
-    public void determineWinner(int betAmount){
+    public String determineWinner(){
         int playerPoints = this.player.calculatePoints();
         int bankerPoints = this.banker.calculatePoints();
         if (bankerPoints > playerPoints) {
-            System.out.println("Banker wins with " + bankerPoints + " points!");
+            return "Banker wins with " + bankerPoints + " points!";
         } else if (playerPoints > bankerPoints) {
-            System.out.println("Player wins with " + playerPoints + " points!");
             this.player.increaseWinnings(betAmount);
             this.player.getCapitalBack(betAmount);
+            return "Player wins with " + playerPoints + " points!";
         } else {
-            System.out.println("It is a draw");
+            return "It is a draw";
         }
     }
 

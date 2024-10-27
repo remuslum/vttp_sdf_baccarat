@@ -37,6 +37,10 @@ public class Player extends Human{
         return winnings;
     }
 
+    public int getTotalFunds() {
+        return winnings + buyIn;
+    }
+
     @Override
     public String toString() {
         return this.name + " has entered the session with $" + this.buyIn;

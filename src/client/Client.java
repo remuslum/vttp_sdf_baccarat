@@ -41,6 +41,14 @@ public class Client {
             } else if (messageToServer.contains("deal")){
                 String[] message = messageToServer.toLowerCase().split(" ");
                 finalMessageToServer = message[0] + "|" + message[1];
+            } else if (messageToServer.contains("exit")){
+                bw.write("""
+                 exit server
+                 """);
+                bw.flush();
+                break;
+            } else {
+                finalMessageToServer = "Unknown command";
             }
             bw.write(finalMessageToServer + "\n");
             bw.flush();
@@ -48,6 +56,9 @@ public class Client {
             String messageFromServer = br.readLine();
             System.out.println(messageFromServer);
         }
-        
+        System.out.println(br.readLine());
+        br.close();
+        bw.close();
+        socket.close();
     }
 }
